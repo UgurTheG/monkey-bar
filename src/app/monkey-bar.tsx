@@ -17,7 +17,7 @@ const MonkeyBar: React.FC = () => {
             <Header/>
 
             {/* 🎥 HERO — now using shared VideoSection */}
-            <VideoSection src="/monkey.mp4" height="100vh" >
+            <VideoSection src="monkey.mp4" height="100vh" >
                 <div className="content">
                     <div className="kicker">Cocktails · Beats · Kleinstadtdschungel</div>
                     <h1 className="title">
@@ -39,7 +39,7 @@ const MonkeyBar: React.FC = () => {
             </VideoSection>
             <AboutUs/>
             {/* 💬 QUOTE SECTION */}
-            <VideoSection src="/monkey2.mp4">
+            <VideoSection src="monkey2.mp4">
                 <p className="quote">
                     „Es braucht nicht viel, um einen guten Abend zu haben – nur gute Menschen,
                     gute Musik und einen richtig guten Drink.“
@@ -47,7 +47,7 @@ const MonkeyBar: React.FC = () => {
             </VideoSection>
             <Menu/>
             {/* 🍹 HAPPY HOUR SECTION */}
-            <VideoSection src="/monkey.mp4">
+            <VideoSection src="monkey.mp4">
                 <p className="quote">
                     Happy Hour täglich 17–19 Uhr · 2 für 1 auf ausgewählte Drinks
                 </p>

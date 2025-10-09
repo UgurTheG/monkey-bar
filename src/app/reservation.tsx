@@ -26,39 +26,37 @@ export default function ReservationDialog() {
     const today = startOfToday();
 
     // Öffnungszeiten (0 = Sonntag, 1 = Montag, …)
-    const openingHours: Record<number, [number, number] | null> = {
-        0: [18, 22], // Sonntag
-        1: null,     // Montag – geschlossen
-        2: null,     // Dienstag – geschlossen
-        3: null,     // Mittwoch – geschlossen
-        4: [18, 22], // Donnerstag
-        5: [18, 26], // Freitag (02:00)
-        6: [18, 26], // Samstag (02:00)
-    };
 
-    // Hilfsfunktion: verfügbare Uhrzeiten generieren (15-Minuten-Schritte)
-    function generateAvailableTimes(date: Date | null): Date[] {
-        if (!date) return [];
-        const day = date.getDay();
-        const hours = openingHours[day];
-        if (!hours) return []; // geschlossen
+
+    const availableTimes = React.useMemo(() => {
+        const OPENING_HOURS: Record<number, [number, number] | null> = {
+            0: [18, 22], // Sonntag
+            1: null,     // Montag – geschlossen
+            2: null,     // Dienstag – geschlossen
+            3: null,     // Mittwoch – geschlossen
+            4: [18, 22], // Donnerstag
+            5: [18, 26], // Freitag (02:00)
+            6: [18, 26], // Samstag (02:00)
+        };
+        if (!dt) return [];
+        const hours = OPENING_HOURS[dt.getDay()];
+        if (!hours) return [];
 
         const [openHour, closeHour] = hours;
+        const base = new Date(dt);
         const times: Date[] = [];
-        const base = new Date(date);
 
         for (let h = openHour; h < closeHour; h++) {
             for (let m = 0; m < 60; m += 15) {
                 const slot = new Date(base);
+                // support hours that roll past midnight, e.g., 24–26
+                if (h >= 24) slot.setDate(slot.getDate() + 1);
                 slot.setHours(h % 24, m, 0, 0);
                 times.push(slot);
             }
         }
         return times;
-    }
-
-    const availableTimes = React.useMemo(() => generateAvailableTimes(dt), [dt, generateAvailableTimes]);
-
+    }, [dt]);
     return (
         <Dialog.Root
             open={open}
