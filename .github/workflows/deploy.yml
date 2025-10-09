@@ -21,23 +21,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: 24
+          node-version: 20  # Node 24 can cause issues with some npm packages
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
-        env:
-          NODE_ENV: production
 
       - name: Build static site
         run: npm run build
-        env:
-          NODE_ENV: production
+
+      - name: Export static files
+        run: npx next export
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./out
-        env:
-          NODE_ENV: production
-
