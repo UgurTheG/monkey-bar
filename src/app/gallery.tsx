@@ -41,7 +41,7 @@ export default function Gallery() {
                     extensions={{ AutoScroll }}
                     options={{
                         type: "loop",
-                        perPage: 2,
+                        perPage: 4,
                         gap: "1rem",
                         arrows: true,
                         autoScroll: {

@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const isProd = process.env.NODE_ENV === "production";
 const nextConfig: NextConfig = {
-    output: "export", // ✅ enables static export
+    output: isProd ? "export" : undefined, // ✅ enables static export
     basePath: isProd ? "/monkey-bar" : "", // ✅ only use subpath in production
     assetPrefix: isProd ? "/monkey-bar/" : "",
     images: {
