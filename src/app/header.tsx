@@ -13,9 +13,6 @@ export default function Header() {
         <header id="header">
             <div className="nav">
                 <div className="brand">
-                    <div className="logo" aria-hidden="true">
-                        🐒
-                    </div>
                     <span>
             Monkey <span className="dot">Bar</span>
           </span>
