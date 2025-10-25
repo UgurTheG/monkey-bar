@@ -26,7 +26,7 @@ const MonkeyBar: React.FC = () => {
                         Lehn dich zurück, genieße die Musik und lass den Abend laufen.
                     </p>
                     <div className="cta">
-                        <a className="btn-primary" href="#menu">
+                        <a className="btn-primary" href="/menu-book">
                             <i className="fa-solid fa-martini-glass-citrus"/> Unsere Drinks
                         </a>
                         <a className="btn-primary" href="#visit">
@@ -37,7 +37,7 @@ const MonkeyBar: React.FC = () => {
             </VideoSection>
             <AboutUs/>
             {/* 💬 QUOTE SECTION */}
-            <VideoSection src="monkey2.mp4">
+            <VideoSection src="monkey3.mp4">
                 <p className="quote">
                     „Es braucht nicht viel, um einen guten Abend zu haben – nur gute Menschen,
                     gute Musik und einen richtig guten Drink.“

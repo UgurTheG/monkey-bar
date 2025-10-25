@@ -178,9 +178,9 @@ function CoverFront() {
         <div className="relative h-full w-full">
             <div className="absolute inset-0 bg-gradient-to-br from-amber-200 via-amber-100 to-white dark:from-zinc-800 dark:via-zinc-900 dark:to-black rounded-r-2xl" />
             <div className="relative z-10 h-full flex flex-col items-center justify-center text-center gap-4">
-                <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">La Petite Bistro</h1>
-                <p className="uppercase tracking-[0.3em] text-sm">Seasonal Menu</p>
-                <div className="mt-4 text-xs opacity-70">Autumn Edition</div>
+                <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">Monkey Bar</h1>
+                <p className="uppercase tracking-[0.3em] text-sm"></p>
+                <div className="mt-4 text-xs opacity-70"></div>
             </div>
         </div>
     );
