@@ -29,115 +29,75 @@ const MENU: MenuSection[] = [
         title: "Starters",
         subtitle: "Small plates to share",
         items: [
-            {
-                name: "Sourdough & Whipped Butter",
-                description: "Warm bakery sourdough with sea‑salt butter",
-                price: "€5",
-                badge: "Chef",
-            },
-            {
-                name: "Heirloom Tomato Burrata",
-                description: "Basil oil, balsamic pearls, toasted pine nuts",
-                price: "€12",
-                badge: "Vegan",
-            },
-            {
-                name: "Crispy Calamari",
-                description: "Lemon aioli, pickled chili",
-                price: "€11",
-            },
-            {
-                name: "Roasted Pumpkin Soup",
-                description: "Nutmeg crème, seed crunch",
-                price: "€9",
-                badge: "GF",
-            },
+            { name: "Sourdough & Whipped Butter", description: "Warm bakery sourdough with sea-salt butter", price: "€5", badge: "Chef" },
+            { name: "Heirloom Tomato Burrata", description: "Basil oil, balsamic pearls, toasted pine nuts", price: "€12", badge: "Vegan" },
+            { name: "Crispy Calamari", description: "Lemon aioli, pickled chili", price: "€11" },
+            { name: "Roasted Pumpkin Soup", description: "Nutmeg crème, seed crunch", price: "€9", badge: "GF" },
         ],
     },
     {
         title: "Mains",
         subtitle: "From the kitchen",
         items: [
-            {
-                name: "Herb‑Crusted Salmon",
-                description: "Garden greens, dill beurre blanc",
-                price: "€22",
-                badge: "Chef",
-            },
-            {
-                name: "Tagliatelle al Funghi",
-                description: "Porcini, pecorino, parsley",
-                price: "€18",
-            },
-            {
-                name: "Bavette Steak (200g)",
-                description: "Peppercorn jus, triple‑cooked chips",
-                price: "€26",
-                badge: "New",
-            },
-            {
-                name: "Cauliflower Shawarma Bowl",
-                description: "Hummus, pickles, green tahini",
-                price: "€17",
-                badge: "Vegan",
-            },
+            { name: "Herb-Crusted Salmon", description: "Garden greens, dill beurre blanc", price: "€22", badge: "Chef" },
+            { name: "Tagliatelle al Funghi", description: "Porcini, pecorino, parsley", price: "€18" },
+            { name: "Bavette Steak (200g)", description: "Peppercorn jus, triple-cooked chips", price: "€26", badge: "New" },
+            { name: "Cauliflower Shawarma Bowl", description: "Hummus, pickles, green tahini", price: "€17", badge: "Vegan" },
         ],
     },
     {
         title: "Desserts",
         subtitle: "Save room",
         items: [
-            {
-                name: "Basque Cheesecake",
-                description: "Vanilla bean, seasonal compote",
-                price: "€9",
-                badge: "Chef",
-            },
-            {
-                name: "Dark Chocolate Mousse",
-                description: "Espresso whip, cocoa nibs",
-                price: "€8",
-            },
-            {
-                name: "Lemon Olive‑Oil Cake",
-                description: "Candied citrus, crème fraîche",
-                price: "€8",
-                badge: "New",
-            },
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" },
+            // many more to simulate overflow:
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" },
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" },
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" },
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" },
+            // many more to simulate overflow:
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" },
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" },
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" },
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" },
+            // many more to simulate overflow:
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" },
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" },
+            { name: "Basque Cheesecake", description: "Vanilla bean, seasonal compote", price: "€9", badge: "Chef" },
+            { name: "Dark Chocolate Mousse", description: "Espresso whip, cocoa nibs", price: "€8" },
+            { name: "Lemon Olive-Oil Cake", description: "Candied citrus, crème fraîche", price: "€8", badge: "New" }
         ],
     },
     {
         title: "Drinks",
         subtitle: "By the glass",
         items: [
-            {
-                name: "House Lemonade",
-                description: "Pressed lemons, mint",
-                price: "€4",
-                image: "https://picsum.photos/seed/lemonade/200/200",
-                imageAlt: "Glass of house lemonade with mint",
-            },
-            {
-                name: "Elderflower Spritz",
-                description: "Non‑alcoholic",
-                price: "€6",
-                image: "https://picsum.photos/seed/elderflower/200/200",
-                imageAlt: "Elderflower spritz with ice",
-            },
-            {
-                name: "Negroni",
-                description: "Gin, Campari, sweet vermouth",
-                price: "€10",
-                image: "https://picsum.photos/seed/negroni/200/200",
-                imageAlt: "Classic Negroni cocktail",
-            },
-            {
-                name: "Glass of Red/White",
-                description: "Sommelier’s selection",
-                price: "€7",
-                image: "https://picsum.photos/seed/wine/200/200",
-                imageAlt: "Glass of wine",
-            },
+            { name: "House Lemonade", description: "Pressed lemons, mint", price: "€4", image: "https://picsum.photos/seed/lemonade/200/200", imageAlt: "Glass of house lemonade with mint" },
+            { name: "Elderflower Spritz", description: "Non-alcoholic", price: "€6", image: "https://picsum.photos/seed/elderflower/200/200", imageAlt: "Elderflower spritz with ice" },
+            { name: "Negroni", description: "Gin, Campari, sweet vermouth", price: "€10", image: "https://picsum.photos/seed/negroni/200/200", imageAlt: "Classic Negroni cocktail" },
+            { name: "Glass of Red/White", description: "Sommelier’s selection", price: "€7", image: "https://picsum.photos/seed/wine/200/200", imageAlt: "Glass of wine" },
         ],
     },
 ];
@@ -146,42 +106,48 @@ const MENU: MenuSection[] = [
 function classNames(...parts: Array<string | false | null | undefined>) {
     return parts.filter(Boolean).join(" ");
 }
-
 function useIsMounted() {
     const [mounted, setMounted] = useState(false);
     useEffect(() => setMounted(true), []);
     return mounted;
 }
+function chunk<T>(arr: T[], size: number) {
+    const out: T[][] = [];
+    for (let i = 0; i < arr.length; i += size) out.push(arr.slice(i, i + size));
+    return out;
+}
 
-// ---------- Page Shell (each child page must be a component) ----------
-const BookPage = React.forwardRef<HTMLDivElement, { children: React.ReactNode; className?: string; isCover?: boolean }>(
-    ({ children, className, isCover }, ref) => (
-        <div
-            ref={ref}
-            data-density={isCover ? "hard" : undefined}
-            className={classNames(
-                "h-full w-full bg-white/95 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100",
-                "px-8 py-10 flex flex-col",
-                isCover ? "bg-gradient-to-br from-amber-100 to-orange-50 dark:from-neutral-800 dark:to-neutral-900" : "",
-                className
-            )}
-        >
-            {children}
-        </div>
-    )
-);
+// How many items per *page* (tweak to your design).
+// If your items are mostly 1–2 lines, 12–16 works well.
+// If many have images / long descriptions, lower this.
+const ITEMS_PER_PAGE = 14;
+
+// ---------- Page Shell ----------
+const BookPage = React.forwardRef<
+    HTMLDivElement,
+    { children: React.ReactNode; className?: string; isCover?: boolean }
+>(({ children, className, isCover }, ref) => (
+    <div
+        ref={ref}
+        data-density={isCover ? "hard" : undefined}
+        className={classNames(
+            "h-full w-full bg-white/95 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100",
+            "px-8 py-10 flex flex-col",
+            className
+        )}
+    >
+        {children}
+    </div>
+));
 BookPage.displayName = "BookPage";
 
 // ---------- Specific Pages ----------
 function CoverFront() {
     return (
-        <div className="relative h-full w-full">
-            <div className="absolute inset-0 bg-gradient-to-br from-amber-200 via-amber-100 to-white dark:from-zinc-800 dark:via-zinc-900 dark:to-black rounded-r-2xl" />
-            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center gap-4">
-                <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">Monkey Bar</h1>
-                <p className="uppercase tracking-[0.3em] text-sm"></p>
-                <div className="mt-4 text-xs opacity-70"></div>
-            </div>
+        <div className="h-full w-full flex flex-col items-center justify-center text-center gap-4">
+            <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">Monkey Bar</h1>
+            <p className="uppercase tracking-[0.3em] text-sm"></p>
+            <div className="mt-4 text-xs opacity-70"></div>
         </div>
     );
 }
@@ -191,7 +157,9 @@ function IntroPage() {
         <div className="flex flex-col gap-4 h-full">
             <header>
                 <h2 className="text-2xl font-semibold">Welcome</h2>
-                <p className="text-sm opacity-80">We cook with local, seasonal ingredients. Prices include VAT. Please inform us of any allergies.</p>
+                <p className="text-sm opacity-80">
+                    We cook with local, seasonal ingredients. Prices include VAT. Please inform us of any allergies.
+                </p>
             </header>
             <div className="mt-2 grid grid-cols-1 gap-3 text-sm">
                 <div className="p-4 rounded-xl bg-amber-50/70 dark:bg-zinc-800/60 border border-amber-100 dark:border-zinc-700">
@@ -208,66 +176,64 @@ function IntroPage() {
     );
 }
 
-function SectionPage({ section }: { section: MenuSection }) {
+function SectionPage({ section, continued = false }: { section: MenuSection; continued?: boolean }) {
     return (
         <div className="flex flex-col h-full">
             <header className="mb-3">
-                <h2 className="text-2xl font-semibold">{section.title}</h2>
-                {section.subtitle && (
-                    <p className="text-sm opacity-80">{section.subtitle}</p>
-                )}
+                <h2 className="text-2xl font-semibold">
+                    {section.title} {continued && <span className="text-sm opacity-60 align-baseline">(continued)</span>}
+                </h2>
+                {section.subtitle && !continued && <p className="text-sm opacity-80">{section.subtitle}</p>}
             </header>
-            <ul className="space-y-4 text-sm">
+
+            {/* 1 column on small screens, 2 columns on md+ (prevents tall single columns) */}
+            <ul
+                className={classNames(
+                    "text-sm [column-fill:_balance] columns-1 md:columns-2",
+                    "md:gap-6"
+                )}
+            >
                 {section.items.map((it) => (
-                    <li key={it.name} className="grid grid-cols-[auto_1fr_auto] gap-x-4 items-start">
-                        {it.image ? (
-                            <div className="relative h-14 w-14 rounded-xl overflow-hidden border bg-white/40 dark:bg-zinc-900/40">
-                                <Image src={it.image} alt={it.imageAlt ?? it.name} fill sizes="56px" className="object-cover" unoptimized />
-                            </div>
-                        ) : (
-                            <div className="h-14 w-14 hidden sm:block" aria-hidden="true" />
-                        )}
-                        <div>
-                            <div className="font-medium flex items-center gap-2">
-                                {it.name}
-                                {it.badge && (
-                                    <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-200/70 text-amber-900 border border-amber-300">
-                    {it.badge}
-                  </span>
-                                )}
-                            </div>
-                            {it.description && (
-                                <p className="opacity-70 leading-snug mt-0.5">
-                                    {it.description}
-                                </p>
+                    <li key={it.name} className="break-inside-avoid mb-4">
+                        <div className="grid grid-cols-[auto_1fr_auto] gap-x-4 items-start">
+                            {it.image ? (
+                                <div className="relative h-14 w-14 rounded-xl overflow-hidden border bg-white/40 dark:bg-zinc-900/40">
+                                    <Image src={it.image} alt={it.imageAlt ?? it.name} fill sizes="56px" className="object-cover" unoptimized />
+                                </div>
+                            ) : (
+                                <div className="h-14 w-14 hidden sm:block" aria-hidden="true" />
                             )}
+                            <div>
+                                <div className="font-medium flex items-center gap-2">
+                                    {it.name}
+                                    {it.badge && (
+                                        <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-amber-200/70 text-amber-900 border border-amber-300">
+                      {it.badge}
+                    </span>
+                                    )}
+                                </div>
+                                {it.description && <p className="opacity-70 leading-snug mt-0.5">{it.description}</p>}
+                            </div>
+                            <div className="text-right font-semibold tabular-nums">{it.price}</div>
                         </div>
-                        <div className="text-right font-semibold tabular-nums">{it.price}</div>
                     </li>
                 ))}
             </ul>
-            <div className="mt-auto pt-6 text-[11px] opacity-60">
-                Ask about today’s specials and wine pairings.
-            </div>
+
         </div>
     );
 }
 
 function BackCover() {
     return (
-        <div className="relative h-full w-full">
-            <div className="absolute inset-0 rounded-l-2xl bg-gradient-to-tl from-amber-200 via-amber-100 to-white dark:from-zinc-800 dark:via-zinc-900 dark:to-black" />
-            <div className="relative z-10 h-full flex flex-col items-center justify-center text-center gap-2">
-                <h3 className="text-xl font-medium">Bon Appétit</h3>
-                <p className="text-xs opacity-70">Instagram: @monkeybarbalingen9</p>
-            </div>
+        <div className="h-full w-full flex flex-col items-center justify-center text-center gap-2">
+            <h3 className="text-xl font-medium">Bon Appétit</h3>
+            <p className="text-xs opacity-70">Instagram: @monkeybarbalingen9</p>
         </div>
     );
 }
 
 // ---------- Main Component ----------
-// Narrow refs to avoid `any` while keeping compatibility with react-pageflip
-// Minimal subset of the instance API we use
 type PageFlipApi = { flipPrev(): void; flipNext(): void };
 type FlipBookHandle = { pageFlip(): PageFlipApi };
 
@@ -275,7 +241,24 @@ export default function MenuBook() {
     const mounted = useIsMounted();
     const bookRef = useRef<FlipBookHandle | null>(null);
     const [page, setPage] = useState(0);
-    const pagesTotal = useMemo(() => 2 /* covers */ + 1 /* intro */ + MENU.length, []);
+
+    // Build paginated pages from MENU
+    const pagedSections = useMemo(() => {
+        const out: Array<{ section: MenuSection; continued: boolean; key: string }> = [];
+        MENU.forEach((s) => {
+            const pieces = chunk(s.items, ITEMS_PER_PAGE);
+            pieces.forEach((items, idx) => {
+                out.push({
+                    section: { ...s, items },
+                    continued: idx > 0,
+                    key: `${s.title}-${idx}`,
+                });
+            });
+        });
+        return out;
+    }, []);
+
+    const pagesTotal = useMemo(() => 2 /* covers */ + 1 /* intro */ + pagedSections.length, [pagedSections.length]);
 
     const goPrev = () => bookRef.current?.pageFlip()?.flipPrev();
     const goNext = () => bookRef.current?.pageFlip()?.flipNext();
@@ -285,24 +268,16 @@ export default function MenuBook() {
             <div className="mb-6 flex items-center justify-between gap-3">
                 <div>
                     <h1 className="text-3xl font-semibold">Monkey Bar Menu</h1>
-                    <p className="opacity-70 text-sm">Bättern Sie die Seiten um, wie bei einem echten Menü.</p>
+                    <p className="opacity-70 text-sm">Blättern Sie die Seiten um, wie bei einem echten Menü.</p>
                 </div>
                 <div className="flex items-center gap-2">
-                    <button
-                        onClick={goPrev}
-                        className="px-3 py-2 rounded-xl border bg-white/70 dark:bg-zinc-800 hover:bg-white shadow-sm"
-                        aria-label="Previous page"
-                    >
+                    <button onClick={goPrev} className="px-3 py-2 rounded-xl border bg-white/70 dark:bg-zinc-800 hover:bg-white shadow-sm" aria-label="Previous page">
                         ◀
                     </button>
                     <span className="text-sm tabular-nums min-w-[5ch] text-center" aria-live="polite">
             {Math.min(page + 1, pagesTotal)} / {pagesTotal}
           </span>
-                    <button
-                        onClick={goNext}
-                        className="px-3 py-2 rounded-xl border bg-white/70 dark:bg-zinc-800 hover:bg-white shadow-sm"
-                        aria-label="Next page"
-                    >
+                    <button onClick={goNext} className="px-3 py-2 rounded-xl border bg-white/70 dark:bg-zinc-800 hover:bg-white shadow-sm" aria-label="Next page">
                         ▶
                     </button>
                 </div>
@@ -320,9 +295,7 @@ export default function MenuBook() {
                                     <li key={i.name} className="flex items-start justify-between gap-4">
                                         <div>
                                             <div className="font-medium">{i.name}</div>
-                                            {i.description && (
-                                                <p className="opacity-70 leading-snug">{i.description}</p>
-                                            )}
+                                            {i.description && <p className="opacity-70 leading-snug">{i.description}</p>}
                                         </div>
                                         <div className="font-semibold tabular-nums">{i.price}</div>
                                     </li>
@@ -361,10 +334,10 @@ export default function MenuBook() {
                             <IntroPage />
                         </BookPage>
 
-                        {/* Sections */}
-                        {MENU.map((section) => (
-                            <BookPage key={section.title}>
-                                <SectionPage section={section} />
+                        {/* Paginated Sections */}
+                        {pagedSections.map(({ section, continued, key }) => (
+                            <BookPage key={key}>
+                                <SectionPage section={section} continued={continued} />
                             </BookPage>
                         ))}
 
