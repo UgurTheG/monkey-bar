@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 
 export default function AboutUs() {
     return (
@@ -22,7 +21,15 @@ export default function AboutUs() {
                         Und von 17–19 Uhr: <strong>Happy Hour</strong>.
                     </p>
                 </div>
-                <Image
+                <video
+                    src="/raum.mp4"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="metadata"
+                />
+               {/* <Image
                     className="reveal rounded-xl object-cover"
                     alt="Bar-Interior mit warmem Licht"
                     src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1400&auto=format&fit=crop"
@@ -30,7 +37,7 @@ export default function AboutUs() {
                     height={933}
                     sizes="(max-width: 768px) 100vw, 50vw"
                     priority
-                />
+                />*/}
             </div>
         </section>
     )
