@@ -4,7 +4,6 @@ import React from "react";
 import "./index.css";
 import "flatpickr/dist/flatpickr.min.css";
 import Gallery from "@/app/gallery";
-import Menu from "@/app/menu";
 import VideoSection from "@/app/VideoSection";
 import Footer from "@/app/footer";
 import Visit from "@/app/visit";
@@ -15,7 +14,6 @@ const MonkeyBar: React.FC = () => {
     return (
         <>
             <Header/>
-
             {/* 🎥 HERO — now using shared VideoSection */}
             <VideoSection src="monkey.mp4" height="100vh" >
                 <div className="content">
@@ -45,13 +43,12 @@ const MonkeyBar: React.FC = () => {
                     gute Musik und einen richtig guten Drink.“
                 </p>
             </VideoSection>
-            <Menu/>
             {/* 🍹 HAPPY HOUR SECTION */}
-            <VideoSection src="monkey.mp4">
+          {/*  <VideoSection src="monkey.mp4">
                 <p className="quote">
                     Happy Hour täglich 17–19 Uhr · 2 für 1 auf ausgewählte Drinks
                 </p>
-            </VideoSection>
+            </VideoSection>*/}
             <Gallery/>
             <Visit/>
             <Footer/>
