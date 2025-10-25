@@ -1,6 +1,6 @@
 "use client";
 
-import { SiInstagram, SiFacebook, SiTiktok } from "react-icons/si";
+import { SiInstagram/*, SiFacebook, SiTiktok*/ } from "react-icons/si";
 
 export default function Footer() {
     return (
