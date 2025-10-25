@@ -15,7 +15,7 @@ export default function Footer() {
                 >
                     <SiInstagram />
                 </a>
-                <a
+            {/*    <a
                     href="#"
                     aria-label="TikTok"
                     target="_blank"
@@ -32,7 +32,7 @@ export default function Footer() {
                     className="hover:text-blue-600 transition-colors"
                 >
                     <SiFacebook />
-                </a>
+                </a>*/}
             </div>
             <p className="text-sm text-gray-500">© 2025 Monkey Bar – All rights reserved.</p>
         </footer>
