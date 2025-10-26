@@ -1,62 +1,26 @@
-// ReservationDialog.tsx
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import DatePicker, { registerLocale } from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { de } from "date-fns/locale";
-import {
-    format,
-    startOfToday,
-} from "date-fns";
-import React from "react";
+import dynamic from "next/dynamic";
+import { useEffect, useState } from "react";
 
-registerLocale("de", de);
+const Cal = dynamic(() => import("@calcom/embed-react").then(m => m.default), { ssr: false });
+import { getCalApi } from "@calcom/embed-react";
 
 export default function ReservationDialog() {
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
-    const defaultDate = React.useMemo(() => {
-        const d = new Date();
-        d.setHours(18, 0, 0, 0);
-        return d;
-    }, []);
+    useEffect(() => {
+        if (!open) return;
+        (async () => {
+            const cal = await getCalApi();
+            cal("ui", {
+                theme: "dark",
+                styles: { branding: { brandColor: "#f59e0b" } },
+            });
+        })();
+    }, [open]);
 
-    const [dt, setDt] = React.useState<Date | null>(defaultDate);
-    const today = startOfToday();
-
-    // Öffnungszeiten (0 = Sonntag, 1 = Montag, …)
-
-
-    const availableTimes = React.useMemo(() => {
-        const OPENING_HOURS: Record<number, [number, number] | null> = {
-            0: [18, 22], // Sonntag
-            1: null,     // Montag – geschlossen
-            2: null,     // Dienstag – geschlossen
-            3: null,     // Mittwoch – geschlossen
-            4: [18, 22], // Donnerstag
-            5: [18, 26], // Freitag (02:00)
-            6: [18, 26], // Samstag (02:00)
-        };
-        if (!dt) return [];
-        const hours = OPENING_HOURS[dt.getDay()];
-        if (!hours) return [];
-
-        const [openHour, closeHour] = hours;
-        const base = new Date(dt);
-        const times: Date[] = [];
-
-        for (let h = openHour; h < closeHour; h++) {
-            for (let m = 0; m < 60; m += 15) {
-                const slot = new Date(base);
-                // support hours that roll past midnight, e.g., 24–26
-                if (h >= 24) slot.setDate(slot.getDate() + 1);
-                slot.setHours(h % 24, m, 0, 0);
-                times.push(slot);
-            }
-        }
-        return times;
-    }, [dt]);
     return (
         <Dialog.Root
             open={open}
@@ -65,157 +29,66 @@ export default function ReservationDialog() {
                 document.body.style.overflow = v ? "hidden" : "";
             }}
         >
-            {/* Trigger button */}
-            <Dialog.Trigger className="btn-primary bg-gradient-to-r from-yellow-600 to-yellow-400
-                                 text-black font-semibold px-4 py-2 rounded-full
-                                 hover:shadow-lg transition-all">
+            <Dialog.Trigger className="bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-semibold px-4 py-2 rounded-full">
                 Tisch reservieren
             </Dialog.Trigger>
 
-            {/* Portal for modal */}
             <Dialog.Portal>
-                {/* Background overlay */}
-                <Dialog.Overlay
-                    className="fixed inset-0 z-[9998] bg-black/70 backdrop-blur-sm
-                     data-[state=open]:animate-fadeIn data-[state=closed]:animate-fadeOut"
-                />
+                <Dialog.Overlay className="fixed inset-0 z-[9998] bg-black/70 backdrop-blur-sm" />
 
-                {/* Modal content */}
+                {/* Full-screen on mobile; card on desktop */}
                 <Dialog.Content
-                    className="fixed left-1/2 top-1/2 z-[9999] w-[min(560px,92vw)]
-                     -translate-x-1/2 -translate-y-1/2 rounded-2xl
-                     bg-neutral-900 text-white p-6 border border-neutral-800
-                     shadow-[0_0_40px_rgba(0,0,0,0.6)]
-                     data-[state=open]:animate-scaleIn data-[state=closed]:animate-scaleOut
-                     focus:outline-none"
+                    className="
+            fixed z-[9999]
+            inset-0
+            md:inset-auto md:left-1/2 md:top-1/2 md:-translate-x-1/2 md:-translate-y-1/2
+            w-screen md:w-[min(720px,92vw)]
+            h-[100dvh] md:max-h-[90vh]
+            rounded-none md:rounded-2xl
+            bg-neutral-900 text-white border border-neutral-800
+            p-0
+            flex flex-col               /* <-- make it a column */
+          "
                 >
-                    <div className="flex items-center justify-between mb-4">
-                        <Dialog.Title className="text-xl font-semibold text-gold-400">
-                            <i className="fa-regular fa-calendar mr-2 text-gold-400" />
-                            Tisch reservieren
-                        </Dialog.Title>
-                        <Dialog.Description className="text-sm text-neutral-400 mb-2">
-                            Bitte fülle das Formular aus, um deine Reservierungsanfrage zu senden.
-                        </Dialog.Description>
-                        <Dialog.Close
-                            aria-label="Schließen"
-                            className="text-neutral-400 hover:text-white transition-colors text-lg cursor-pointer"
-                        >
-                            ✕
-                        </Dialog.Close>
+                    {/* Header (non-scrolling) */}
+                    <div className="shrink-0 h-14 px-4 border-b border-neutral-800 flex items-center justify-between">
+                        <Dialog.Title className="text-lg font-semibold">Tisch reservieren</Dialog.Title>
+                        <Dialog.Close className="text-neutral-400 hover:text-white">✕</Dialog.Close>
                     </div>
 
-                    <form
-                        action="https://formsubmit.co/ugurg@outlook.de"
-                        method="POST"
-                        target={"_blank"}
-                        onSubmit={() => {
-                            setTimeout(() => setOpen(false), 300); // give browser time to send request
-                        }}
+                    {/* Scroll container */}
+                    <div
+                        className="
+              grow min-h-0               /* allows child to shrink and enable scroll */
+              overflow-y-auto            /* <-- enables scrolling */
+              [-webkit-overflow-scrolling:touch]  /* smooth iOS scroll */
+            "
                     >
-                        {/* FormSubmit hidden fields */}
-                        <input type="hidden" name="_subject" value="Reservierung – Monkey Bar" />
-                        <input type="hidden" name="_template" value="table" />
-                        <input type="hidden" name="_captcha" value="false" />
-                        <input type="text" name="_honey" style={{ display: "none" }} />
-
-                        {/* DatePicker */}
-                        <label className="block">
-                            <span className="sr-only">Datum &amp; Uhrzeit</span>
-                            <DatePicker
-                                selected={dt}
-                                onChange={(d) => setDt(d)}
-                                locale="de"
-                                showTimeSelect
-                                timeIntervals={15}
-                                timeCaption="Uhrzeit"
-                                dateFormat="dd.MM.yyyy HH:mm"
-                                placeholderText="Datum & Uhrzeit"
-                                minDate={today}
-                                includeTimes={availableTimes}
-                                shouldCloseOnSelect
-                                className="input w-full bg-neutral-800 text-white border border-neutral-700 rounded-xl
-                           px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gold-500"
-                                popperContainer={({ children }) => <div className="z-50">{children}</div>}
-                            />
-                        </label>
-
-                        {availableTimes.length === 0 && (
-                            <p className="text-sm text-red-400">
-                                An diesem Tag sind wir geschlossen.
-                            </p>
-                        )}
-
-                        {/* Hidden formatted date/time */}
-                        <input
-                            type="hidden"
-                            name="Datum & Uhrzeit"
-                            value={dt ? format(dt, "dd.MM.yyyy HH:mm") : ""}
+                        {/* No forced 100% height on Cal — let it size and let THIS div scroll */}
+                        <Cal
+                            calLink="monkeybarbalingen/monkey-bar-balingen"
+                            calOrigin="https://cal.com"
+                            config={{
+                                name: "",                // or a value from your user session
+                                email: "",
+                                notes: "",
+                                phone: "+49 ",
+                            }}
                         />
+                    </div>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <input
-                                className="input bg-neutral-800 text-white border border-neutral-700 rounded-xl px-3 py-2
-                           focus:outline-none focus:ring-2 focus:ring-gold-500"
-                                name="Name"
-                                placeholder="Name"
-                                required
-                            />
-                            <input
-                                className="input bg-neutral-800 text-white border border-neutral-700 rounded-xl px-3 py-2
-                           focus:outline-none focus:ring-2 focus:ring-gold-500"
-                                name="E-Mail"
-                                type="email"
-                                placeholder="E-Mail"
-                                required
-                            />
-                        </div>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                            <input
-                                className="input bg-neutral-800 text-white border border-neutral-700 rounded-xl px-3 py-2
-                           focus:outline-none focus:ring-2 focus:ring-gold-500"
-                                name="Anzahl Personen"
-                                type="number"
-                                min={1}
-                                max={12}
-                                placeholder="Personen"
-                                required
-                            />
-                            <input
-                                className="input bg-neutral-800 text-white border border-neutral-700 rounded-xl px-3 py-2
-                           focus:outline-none focus:ring-2 focus:ring-gold-500"
-                                name="Telefon"
-                                placeholder="Telefon (optional)"
-                            />
-                        </div>
-
-                        <textarea
-                            className="input bg-neutral-800 text-white border border-neutral-700 rounded-xl px-3 py-2
-                         focus:outline-none focus:ring-2 focus:ring-gold-500"
-                            name="Reservierungshinweis"
-                            rows={3}
-                            placeholder="Hinweise (optional)"
-                        />
-
-                        <div className="flex items-center justify-end gap-3 pt-2">
-                            <Dialog.Close asChild>
-                                <button
-                                    type="button"
-                                    className="px-5 py-2 rounded-xl bg-neutral-700 hover:bg-neutral-600 transition-colors"
-                                >
-                                    Abbrechen
-                                </button>
-                            </Dialog.Close>
-                            <button
-                                className="px-5 py-2 rounded-xl bg-gradient-to-r from-yellow-600 to-yellow-400
-                           text-black font-semibold shadow-md hover:shadow-lg transition-all"
-                                type="submit"
-                            >
-                                Anfrage senden
-                            </button>
-                        </div>
-                    </form>
+                    {/* Optional fallback link */}
+                    <div className="md:hidden text-center text-xs text-neutral-400 py-2">
+                        Lädt nicht?
+                        <a
+                            href="https://cal.com/monkeybarbalingen/monkey-bar-balingen/tischreservierung"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-yellow-400 underline ml-1"
+                        >
+                            Kalender in neuem Tab öffnen
+                        </a>
+                    </div>
                 </Dialog.Content>
             </Dialog.Portal>
         </Dialog.Root>
