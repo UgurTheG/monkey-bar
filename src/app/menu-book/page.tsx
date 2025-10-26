@@ -110,7 +110,31 @@ function chunk<T>(arr: T[], size: number) {
     return out;
 }
 function normalize(s: string) {
-    return s.toLowerCase().normalize("NFKD").replace(/\p{Diacritic}/gu, "");
+    // Lowercase + strip common combining marks without regex escapes to keep this file replacement-friendly
+    try {
+        return s
+            .toLowerCase()
+            .normalize("NFKD")
+            .split("")
+            .filter((ch) => {
+                const code = ch.charCodeAt(0);
+                return !(code >= 0x0300 && code <= 0x036f);
+            })
+            .join("");
+    } catch {
+        return s.toLowerCase();
+    }
+}
+function useMediaQuery(query: string) {
+    const [matches, setMatches] = useState(false);
+    useEffect(() => {
+        const m = window.matchMedia(query);
+        const on = () => setMatches(m.matches);
+        on();
+        m.addEventListener("change", on);
+        return () => m.removeEventListener("change", on);
+    }, [query]);
+    return matches;
 }
 
 // =====================================
@@ -133,14 +157,20 @@ const BookPage = React.forwardRef<
             // Soft paper look
             "bg-[radial-gradient(1100px_500px_at_50%_-10%,theme(colors.amber.50/.9),theme(colors.white/1))]",
             "dark:bg-[radial-gradient(1100px_500px_at_50%_-10%,theme(colors.zinc.800/.9),theme(colors.neutral.900/1))]",
-            "px-8 py-10 flex flex-col relative overflow-hidden",
+            "px-6 sm:px-8 py-8 sm:py-10 flex flex-col relative overflow-hidden",
             // subtle border + shadow to lift the page content
             "ring-1 ring-black/5 dark:ring-white/10"
         )}
     >
         {/* decorative corner glow */}
         <div className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(60%_40%_at_0%_0%,#000_0%,transparent_70%)] bg-amber-500/5 dark:bg-amber-400/5" />
-        <div className={cx("relative z-10", className)}>{children}</div>
+        {/* scrollable content container to prevent clipping */}
+        <div
+            className={cx("relative z-10 h-full overflow-y-auto overscroll-contain pr-1", className)}
+            style={{ scrollbarGutter: "stable both-edges" }}
+        >
+            {children}
+        </div>
     </div>
 ));
 BookPage.displayName = "BookPage";
@@ -196,7 +226,7 @@ function CoverFront() {
     return (
         <div className="h-full w-full flex flex-col items-center justify-center text-center gap-5">
             <div className="inline-flex items-center justify-center rounded-2xl px-5 py-2 bg-white/70 dark:bg-zinc-900/70 ring-1 ring-black/5 dark:ring-white/10 shadow-sm">
-                <span className="text-xs tracking-[0.25em] uppercase">Since 2025</span>
+                <span className="text-xs tracking-[0.25em] uppercase">Since 2024</span>
             </div>
             <h1 className="text-5xl md:text-6xl font-semibold tracking-tight">Monkey Bar</h1>
             <p className="max-w-md text-sm opacity-80">Seasonal plates • Natural drinks • Good company</p>
@@ -250,9 +280,9 @@ function SectionPage({ section, continued = false }: { section: MenuSection; con
             </header>
 
             {/* 1 column on small screens, 2 columns on md+ (keeps columns balanced) */}
-            <ul className={cx("text-sm [column-fill:_balance] columns-1 md:columns-2", "md:gap-6 ")}>
+            <ul className={cx("text-sm grid grid-cols-1 md:grid-cols-2 md:gap-x-6 ")}>
                 {section.items.map((it) => (
-                    <li key={it.name} className="break-inside-avoid mb-4">
+                    <li key={it.name} className="mb-4">
                         <div className="grid grid-cols-[auto_1fr_auto] gap-x-4 items-start">
                             {it.image ? (
                                 <div className="relative h-14 w-14 rounded-xl overflow-hidden border bg-white/40 dark:bg-zinc-900/40">
@@ -302,6 +332,13 @@ export default function MenuBook() {
     const [page, setPage] = useState(0);
     const [view, setView] = useState<ViewMode>("book");
     const [query, setQuery] = useState("");
+    const isNarrow = useMediaQuery("(max-width: 640px)"); // phones
+    const canUseBook = !isNarrow; // we force list view on phones for readability
+
+    // Default to list view on phones
+    useEffect(() => {
+        if (isNarrow) setView("list");
+    }, [isNarrow]);
 
     // Build paginated pages from MENU
     const { pagedSections, sectionStartPage } = useMemo(() => {
@@ -329,7 +366,6 @@ export default function MenuBook() {
     const jumpToSection = (title: string) => {
         const idx = sectionStartPage.get(title);
         if (typeof idx === "number") {
-            // Some versions of pageflip expose turnToPage; fallback by flipping repeatedly if missing
             const api = bookRef.current?.pageFlip();
             if (api?.turnToPage) api.turnToPage(idx);
             else if (api) {
@@ -345,13 +381,13 @@ export default function MenuBook() {
         function onKey(e: KeyboardEvent) {
             const target = e.target as HTMLElement;
             const typing = target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable);
-            if (view !== "book" || typing) return;
+            if (!canUseBook || view !== "book" || typing) return;
             if (e.key === "ArrowLeft") goPrev();
             if (e.key === "ArrowRight") goNext();
         }
         window.addEventListener("keydown", onKey);
         return () => window.removeEventListener("keydown", onKey);
-    }, [view]);
+    }, [view, canUseBook]);
 
     // Filtered menu for search + list view rendering
     const filteredMenu = useMemo(() => {
@@ -363,7 +399,7 @@ export default function MenuBook() {
                 [i.name, i.description, i.badge, i.price]
                     .filter(Boolean)
                     .map(String)
-                    .some((s) => normalize(s).includes(q))
+                    .some((s) => q ? normalize(s).includes(q) : true)
             );
             if (items.length) matched.push({ ...sec, items });
         }
@@ -373,37 +409,39 @@ export default function MenuBook() {
     const showSearchResults = query.trim().length > 0;
 
     return (
-        <div className="mx-auto max-w-6xl px-4 py-8">
+        <div className="mx-auto max-w-6xl px-3 sm:px-4 py-6 sm:py-8">
             {/* Top Bar */}
-            <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mb-4 sm:mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                    <h1 className="text-3xl font-semibold tracking-tight">Monkey Bar Menu</h1>
+                    <h1 className="text-2xl sm:text-3xl font-semibold tracking-tight">Monkey Bar Menu</h1>
                     <p className="opacity-70 text-sm">Blättern Sie die Seiten um – oder nutzen Sie die Liste & Suche.</p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-2 sm:items-center">
                     {/* View toggle */}
-                    <div className="inline-flex rounded-xl border bg-white/70 dark:bg-zinc-800/70 shadow-sm overflow-hidden">
-                        <button
-                            onClick={() => setView("book")}
-                            className={cx(
-                                "px-3 py-2 text-sm",
-                                view === "book" ? "bg-white dark:bg-zinc-900 font-medium" : "opacity-70 hover:opacity-100"
-                            )}
-                            aria-pressed={view === "book"}
-                        >
-                            Book
-                        </button>
+                    <div className="inline-flex h-9 items-center rounded-xl border bg-white/70 dark:bg-zinc-800/70 shadow-sm overflow-hidden text-xs sm:text-sm">
                         <button
                             onClick={() => setView("list")}
                             className={cx(
-                                "px-3 py-2 text-sm border-l",
+                                "px-3 h-full inline-flex items-center",
                                 view === "list" ? "bg-white dark:bg-zinc-900 font-medium" : "opacity-70 hover:opacity-100"
                             )}
                             aria-pressed={view === "list"}
                         >
                             List
                         </button>
+                        {canUseBook && (
+                            <button
+                                onClick={() => setView("book")}
+                                className={cx(
+                                    "px-3 h-full inline-flex items-center border-l",
+                                    view === "book" ? "bg-white dark:bg-zinc-900 font-medium" : "opacity-70 hover:opacity-100"
+                                )}
+                                aria-pressed={view === "book"}
+                            >
+                                Book
+                            </button>
+                        )}
                     </div>
 
                     {/* Search */}
@@ -426,9 +464,9 @@ export default function MenuBook() {
                         )}
                     </label>
 
-                    {/* Book pager (hidden in list/search and on print) */}
-                    {view === "book" && !showSearchResults && (
-                        <div className="flex items-center gap-2 print:hidden">
+                    {/* Book pager (hidden in list/search, phones, and on print) */}
+                    {canUseBook && view === "book" && !showSearchResults && (
+                        <div className="hidden sm:flex items-center gap-2 print:hidden">
                             <button
                                 onClick={goPrev}
                                 className="px-3 py-2 rounded-xl border bg-white/70 dark:bg-zinc-800 hover:bg-white shadow-sm"
@@ -452,13 +490,13 @@ export default function MenuBook() {
             </div>
 
             {/* Section quick nav */}
-            <div className="mb-4 overflow-x-auto">
+            <div className="mb-3 sm:mb-4 overflow-x-auto -mx-3 sm:mx-0 px-3 sm:px-0">
                 <nav className="flex gap-2 min-w-max">
                     {MENU.map((s) => (
                         <button
                             key={s.title}
-                            onClick={() => (view === "book" ? jumpToSection(s.title) : document.getElementById(`sec-${s.title}`)?.scrollIntoView({ behavior: "smooth", block: "start" }))}
-                            className="px-3 py-1.5 rounded-full text-sm border bg-white/70 dark:bg-zinc-800/70 shadow-sm hover:bg-white"
+                            onClick={() => (canUseBook && view === "book" && !showSearchResults ? jumpToSection(s.title) : document.getElementById(`sec-${s.title}`)?.scrollIntoView({ behavior: "smooth", block: "start" }))}
+                            className="px-3 py-2 rounded-full text-sm border bg-white/70 dark:bg-zinc-800/70 shadow-sm hover:bg-white"
                         >
                             {s.title}
                         </button>
@@ -466,19 +504,19 @@ export default function MenuBook() {
                 </nav>
             </div>
 
-            {/* LIST VIEW or SEARCH RESULTS */}
-            {(view === "list" || showSearchResults) && (
-                <div className="grid sm:grid-cols-2 gap-6 print:block">
+            {/* LIST VIEW or SEARCH RESULTS (always on phones) */}
+            {(view === "list" || !canUseBook || showSearchResults) && (
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 print:block">
                     {filteredMenu.length === 0 && (
                         <div className="text-sm opacity-70">No matches. Try a different term.</div>
                     )}
                     {filteredMenu.map((s) => (
-                        <section key={s.title} id={`sec-${s.title}`} className="p-6 rounded-2xl border bg-white/80 dark:bg-zinc-900 shadow-sm">
-                            <h2 className="text-xl font-semibold">{s.title}</h2>
+                        <section key={s.title} id={`sec-${s.title}`} className="p-4 sm:p-6 rounded-2xl border bg-white/80 dark:bg-zinc-900 shadow-sm">
+                            <h2 className="text-lg sm:text-xl font-semibold">{s.title}</h2>
                             {s.subtitle && <p className="opacity-70 text-sm">{s.subtitle}</p>}
-                            <ul className="mt-4 space-y-3 text-sm">
+                            <ul className="mt-3 sm:mt-4 space-y-3 text-base sm:text-sm">
                                 {s.items.map((i) => (
-                                    <li key={i.name} className="grid grid-cols-[1fr_auto] gap-4 items-start">
+                                    <li key={i.name} className="grid grid-cols-[1fr_auto] gap-3 sm:gap-4 items-start">
                                         <div>
                                             <div className="font-medium flex items-center gap-2">
                                                 {i.name}
@@ -495,8 +533,8 @@ export default function MenuBook() {
                 </div>
             )}
 
-            {/* BOOK VIEW */}
-            {view === "book" && !showSearchResults && (
+            {/* BOOK VIEW (hidden on phones) */}
+            {canUseBook && view === "book" && !showSearchResults && (
                 <div className="print:hidden">
                     {/* Static accessible fallback if JS hasn’t mounted yet */}
                     {!mounted && (
@@ -536,9 +574,9 @@ export default function MenuBook() {
                                 width={520}
                                 height={720}
                                 size="stretch"
-                                minWidth={315}
+                                minWidth={480}
                                 maxWidth={900}
-                                minHeight={420}
+                                minHeight={640}
                                 maxHeight={1200}
                                 maxShadowOpacity={0.45}
                                 showCover
@@ -582,8 +620,8 @@ export default function MenuBook() {
             )}
 
             {/* Print hint */}
-            <p className="mt-6 text-xs opacity-60 print:hidden">
-                Tip: use the <span className="font-medium">List</span> view for printing.
+            <p className="mt-4 sm:mt-6 text-xs opacity-60 print:hidden">
+                On phones we automatically switch to <span className="font-medium">List</span> view for readability. Use Book view on tablets and larger.
             </p>
         </div>
     );
