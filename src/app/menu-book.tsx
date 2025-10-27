@@ -556,8 +556,8 @@ export default function MenuWithTags() {
                 <div className="relative pb-8">
                     <div className="section-kicker">Menu</div>
                     <h2 className="section-title">Getränke & Snacks</h2>
-                    <p className="mt-1.5 text-sm sm:text-base text-zinc-600 dark:text-zinc-300/80 max-w-2xl">
-                        Kategorien antippen zum Filtern. Nochmals tippen um alles zu sehen. Wählen Sie Tags für präzise Filter (UND-Logik).
+                    <p className="mt-1.5 text-sm sm:text-base text-zinc-600 dark:text-zinc-300/80">
+                        Kategorien antippen zum Filtern. Nochmals tippen um alles zu sehen. Wählen Sie Tags für präzise Filter.
                     </p>
                 </div>
 
