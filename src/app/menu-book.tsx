@@ -336,7 +336,7 @@ const MENU: MenuSection[] = [
             {
                 name: "Chai Latte (Decaf)",
                 description: "Gewürze, Milch, cozy",
-                price: "€4.5",
+                price: "€4.50",
                 tags: ["decaf", "sweet", "hot_temp"],
             },
         ],
@@ -373,7 +373,7 @@ const MENU: MenuSection[] = [
             { name: "Pils Lager (0,5l)", description: "Knackig, frisch", price: "€5", tags: ["lager", "tap"] },
             { name: "Dry Riesling", description: "Zitrus, Mineralität", price: "€7", tags: ["dry", "varietal", "bottle"] },
             { name: "Pinot Noir", description: "Kirsche, Gewürz", price: "€8", tags: ["varietal", "bottle"] },
-            { name: "Stout (0,33l)", description: "Kaffee, Schokolade", price: "€4.5", tags: ["stout", "bottle"] },
+            { name: "Stout (0,33l)", description: "Kaffee, Schokolade", price: "€4.50", tags: ["stout", "bottle"] },
         ],
     },
 ];
