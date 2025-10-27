@@ -50,7 +50,6 @@ nav a:hover, nav a.active{opacity:1;color:var(--accent)}
 .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
 /* Sections */
-section{padding:86px 0}
 .wrap{width:min(1100px,92%);margin:0 auto}
 .section-title{font-family:"Playfair Display",serif;font-size:clamp(1.8rem,4.2vw,2.4rem);margin:0 0 10px}
 .section-kicker{color:var(--accent);text-transform:uppercase;letter-spacing:.2em;font-weight:700;font-size:.85rem}

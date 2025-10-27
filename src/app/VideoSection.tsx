@@ -15,7 +15,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({
                                                        children,
                                                    }) => (
     <section
-        className="relative w-full overflow-hidden flex items-center justify-center"
+        className="py-[86px] relative w-full overflow-hidden flex items-center justify-center"
         style={{ height }}
     >
         <video

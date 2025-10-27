@@ -1,7 +1,6 @@
 "use client";
 
-import React, {useMemo, useState, useCallback} from "react";
-import {useRouter} from "next/navigation";
+import React, {useMemo, useState} from "react";
 import Link from "next/link";
 
 // =====================================
@@ -199,24 +198,6 @@ function Pill({label}: { label: NonNullable<MenuItem["badge"]> }) {
 // =====================================
 export default function MenuList() {
     const [query, setQuery] = useState("");
-    const router = useRouter();
-
-    // Smart Back: prefer in-site history, otherwise go home ("/")
-    const smartBack = useCallback(() => {
-        if (typeof window !== "undefined") {
-            const hasHistory = window.history.length > 1;
-            const sameOriginReferrer =
-                document.referrer &&
-                new URL(document.referrer).origin === window.location.origin;
-
-            if (hasHistory && sameOriginReferrer) {
-                router.back();
-                return;
-            }
-        }
-        router.push("/");
-    }, [router]);
-
     const filteredMenu = useMemo(() => {
         if (!query.trim()) return MENU;
         const q = normalize(query.trim());
@@ -234,34 +215,11 @@ export default function MenuList() {
     }, [query]);
 
     return (
-        <div className="mx-auto max-w-6xl px-3 sm:px-4 py-6 sm:py-8">
+        <div className="mx-auto max-w-6xl px-3 sm:px-4 py-6 sm:py-8" id={"menu-list"}>
+            <div className="section-kicker">Menu</div>
+            <h2 className="section-title">Getränke & Snacks</h2>
             {/* Top Bar */}
             <div className="mb-4 sm:mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-start sm:items-center gap-3">
-                    {/* Back/Home control */}
-                    <button
-                        onClick={smartBack}
-                        className="inline-flex items-center gap-2 rounded-lg border bg-white/70 dark:bg-zinc-900/70 px-3 py-2 text-sm shadow-sm hover:bg-white focus:outline-none focus:ring-2 focus:ring-amber-300"
-                        aria-label="Return to landing page"
-                    >
-                        {/* Arrow icon (inline SVG, no deps) */}
-                        <svg
-                            viewBox="0 0 24 24"
-                            aria-hidden="true"
-                            className="h-4 w-4"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <path d="M15 18l-6-6 6-6"/>
-                        </svg>
-                        <span className="hidden sm:inline">Back</span>
-                        <span className="sm:hidden">Home</span>
-                    </button>
-                </div>
-
                 {/* Search */}
                 <label className="relative w-full sm:w-72">
                     <span className="sr-only">Search menu</span>

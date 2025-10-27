@@ -30,7 +30,7 @@ export default function Gallery() {
     ];
 
     return (
-        <section id="gallery">
+        <section id="gallery" className={"py-[86px]"}>
             <div className="wrap">
                 <div className="section-kicker">Einblicke</div>
                 <h2 className="section-title">Gallery</h2>

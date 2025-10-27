@@ -3,7 +3,7 @@ import Image from "next/image";
 
 export default function AboutUs() {
     return (
-        <section id="about">
+        <section id="about" className={"py-[86px]"}>
             <div className="wrap about">
                 <div className="copy reveal">
                     <div className="section-kicker">Über uns</div>

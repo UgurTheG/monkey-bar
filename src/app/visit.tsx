@@ -4,7 +4,7 @@ import React from "react";
 
 export default function Visit() {
     return (
-        <section id="visit">
+        <section id="visit" className={"py-[86px]"}>
             <div className="wrap">
                 <div className="section-kicker">Besuch</div>
                 <h2 className="section-title">Öffnungszeiten & Anfahrt</h2>

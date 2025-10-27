@@ -68,12 +68,7 @@ export default function ReservationDialog() {
                         <Cal
                             calLink="monkeybarbalingen/monkey-bar-balingen"
                             calOrigin="https://cal.com"
-                            config={{
-                                name: "",                // or a value from your user session
-                                email: "",
-                                notes: "",
-                                phone: "+49 ",
-                            }}
+
                         />
                     </div>
 

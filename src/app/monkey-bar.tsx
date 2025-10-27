@@ -9,6 +9,7 @@ import Footer from "@/app/footer";
 import Visit from "@/app/visit";
 import AboutUs from "@/app/aboutUs";
 import Header from "@/app/header";
+import MenuList from "@/app/menu-book";
 
 const MonkeyBar: React.FC = () => {
     return (
@@ -26,7 +27,7 @@ const MonkeyBar: React.FC = () => {
                         Lehn dich zurück, genieße die Musik und lass den Abend laufen.
                     </p>
                     <div className="cta">
-                        <a className="btn-primary" href="/menu-book">
+                        <a className="btn-primary" href="#menu-list">
                             <i className="fa-solid fa-martini-glass-citrus"/> Unsere Drinks
                         </a>
                         <a className="btn-primary" href="#visit">
@@ -50,6 +51,7 @@ const MonkeyBar: React.FC = () => {
                 </p>
             </VideoSection>*/}
             <Gallery/>
+            <MenuList/>
             <Visit/>
             <Footer/>
         </>

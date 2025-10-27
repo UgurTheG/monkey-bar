@@ -37,7 +37,7 @@ export default function Header() {
                     <ul>
                         {[
                             { href: "#about", label: "Über uns" },
-                            { href: "/menu-book", label: "Menu" },
+                            { href: "#menu-list", label: "Menu" },
                             { href: "#gallery", label: "Galerie" },
                             { href: "#visit", label: "Besuch" },
                         ].map((link) => (
