@@ -562,7 +562,7 @@ export default function MenuWithTags() {
                 </div>
 
             {/* Category Bar */}
-            <div className="mb-3 overflow-x-auto -mx-3 px-3">
+            <div className="mb-3 overflow-x-auto -mx-3 px-3 no-scrollbar overscroll-x-contain">
                 <nav className="flex gap-2 min-w-max">
                     {categories.map((title) => (
                         <CategoryChip key={title} title={title} active={section === title} onClick={() => toggleSection(title)} />
@@ -580,7 +580,7 @@ export default function MenuWithTags() {
                         </button>
                     )}
                 </div>
-                <div className="overflow-x-auto">
+                <div className="overflow-x-auto no-scrollbar overscroll-x-contain">
                     <div className="flex gap-2 min-w-max">
                         {FILTER_TAGS.map((id) => (
                             <FilterChip key={id} id={id} active={selectedTags.includes(id)} onToggle={toggleTag} />

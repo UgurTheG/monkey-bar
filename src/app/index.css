@@ -160,3 +160,14 @@ footer{padding:40px 0 60px;color:var(--muted);border-top:1px solid rgba(255,255,
     cursor: pointer;
 }
 
+/* Hide scrollbars on small screens only */
+@media (max-width: 640px) {
+    .no-scrollbar {
+        -ms-overflow-style: none;   /* IE/Edge */
+        scrollbar-width: none;      /* Firefox */
+    }
+    .no-scrollbar::-webkit-scrollbar { /* Chrome/Safari/Opera */
+        width: 0;
+        height: 0;
+    }
+}
