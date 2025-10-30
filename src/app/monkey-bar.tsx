@@ -27,10 +27,10 @@ const MonkeyBar: React.FC = () => {
                         Lehn dich zurück, genieße die Musik und lass den Abend laufen.
                     </p>
                     <div className="cta">
-                        <a className="btn-primary" href="#menu-list">
+                        <a className="btn-primary bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-semibold px-4 py-2 rounded-full" href="#menu-list">
                             <i className="fa-solid fa-martini-glass-citrus"/> Unsere Drinks
                         </a>
-                        <a className="btn-primary" href="#visit">
+                        <a className="btn-primary bg-gradient-to-r from-yellow-600 to-yellow-400 text-black font-semibold px-4 py-2 rounded-full" href="#visit">
                             <i className="fa-solid fa-location-dot"/> Anfahrt
                         </a>
                     </div>
