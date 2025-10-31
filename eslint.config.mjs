@@ -1,25 +1,44 @@
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-import { FlatCompat } from "@eslint/eslintrc";
+// eslint.config.mjs
+import { defineConfig, globalIgnores } from 'eslint/config';
+import nextVitals from 'eslint-config-next/core-web-vitals';
+import nextTs from 'eslint-config-next/typescript';
+import tseslint from 'typescript-eslint';
+import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+export default defineConfig([
+    // Next.js rules (React, React Hooks, Next best practices)
+    ...nextVitals,
 
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-});
+    // Next’s TypeScript rules (pairs nicely with typed linting below)
+    ...nextTs,
 
-const eslintConfig = [
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
-  {
-    ignores: [
-      "node_modules/**",
-      ".next/**",
-      "out/**",
-      "build/**",
-      "next-env.d.ts",
-    ],
-  },
-];
+    // Enable type-aware rules from typescript-eslint
+    // Keep this scoped to TS files
+    ...tseslint.configs.recommendedTypeChecked.map((cfg) => ({
+        ...cfg,
+        files: ['**/*.{ts,tsx}'],
+    })),
+    {
+        files: ['**/*.{ts,tsx}'],
+        languageOptions: {
+            parserOptions: {
+                // Use TS Project Service for type-aware rules without listing tsconfigs
+                projectService: true,
+                // If you hit "could not find a tsconfig" issues, uncomment the next line:
+                // tsconfigRootDir: new URL('.', import.meta.url).pathname,
+            },
+        },
+    },
 
-export default eslintConfig;
+    // Turn off rules that conflict with Prettier — keep this LAST.
+    eslintConfigPrettier,
+
+    // Global ignores (tweak as you like)
+    globalIgnores([
+        '.next/**',
+        'out/**',
+        'build/**',
+        'next-env.d.ts',
+        'node_modules/**',
+    ]),
+]);
