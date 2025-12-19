@@ -7,7 +7,7 @@ export default function Footer() {
         <footer
             className="
         pt-10 pb-14
-        text-[var(--muted)]
+        text-(--muted)
         border-t border-[rgba(255,255,255,0.06)]
         bg-[radial-gradient(100%_50%_at_50%_100%,rgba(224,179,65,.06),transparent_60%)]
       "
