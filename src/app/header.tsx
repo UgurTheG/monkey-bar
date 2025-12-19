@@ -71,8 +71,8 @@ export default function Header() {
                     <ul className="m-0 flex list-none items-center gap-[clamp(12px,3vw,28px)] p-0">
                         {[
                             { href: "#about", label: "Über uns" },
-                            { href: "#menu-list", label: "Menu" },
                             { href: "#gallery", label: "Galerie" },
+                            { href: "#menu-list", label: "Menu" },
                             { href: "#visit", label: "Besuch" },
                         ].map((link) => (
                             <li key={link.href}>
@@ -125,8 +125,8 @@ export default function Header() {
                         <ul className="m-0 flex list-none flex-col gap-2 p-[14px_16px]">
                             {[
                                 { href: "#about", label: "Über uns" },
-                                { href: "#menu-list", label: "Menu" },
                                 { href: "#gallery", label: "Galerie" },
+                                { href: "#menu-list", label: "Menu" },
                                 { href: "#visit", label: "Besuch" },
                             ].map((link) => (
                                 <li key={link.href} className="w-full">
