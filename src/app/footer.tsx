@@ -15,7 +15,7 @@ export default function Footer() {
             <div className="w-[min(1100px,92%)] mx-auto flex flex-col items-center gap-4 text-center">
                 <div className="flex justify-center gap-5 text-2xl mb-2">
                     <a
-                        href="https://www.instagram.com/monkeybarbalingen9/"
+                        href="https://www.instagram.com/monkeybarbalingen/"
                         aria-label="Instagram"
                         target="_blank"
                         rel="noopener noreferrer"
