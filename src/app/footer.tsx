@@ -12,14 +12,8 @@ export default function Footer() {
         bg-[radial-gradient(100%_50%_at_50%_100%,rgba(224,179,65,.06),transparent_60%)]
       "
         >
-            <div
-                className="
-          w-[min(1100px,92%)] mx-auto
-          flex flex-col items-center gap-4
-          text-center
-        "
-            >
-                <div className="social flex justify-center gap-5 text-2xl">
+            <div className="w-[min(1100px,92%)] mx-auto flex flex-col items-center gap-4 text-center">
+                <div className="flex justify-center gap-5 text-2xl mb-2">
                     <a
                         href="https://www.instagram.com/monkeybarbalingen9/"
                         aria-label="Instagram"
@@ -29,7 +23,6 @@ export default function Footer() {
                     >
                         <SiInstagram />
                     </a>
-
                     <a
                         href="#"
                         aria-label="TikTok"
@@ -39,7 +32,6 @@ export default function Footer() {
                     >
                         <SiTiktok />
                     </a>
-
                     <a
                         href="#"
                         aria-label="Facebook"
@@ -50,8 +42,10 @@ export default function Footer() {
                         <SiFacebook />
                     </a>
                 </div>
-
-                <p className="text-sm">© 2025 Monkey Bar – All rights reserved.</p>
+                <hr className="w-1/3 border-t border-[rgba(255,255,255,0.08)] my-2" />
+                <p className="text-sm hover:text-yellow-500 transition-colors duration-200 cursor-pointer">
+                    © 2025 Monkey Bar – All rights reserved.
+                </p>
             </div>
         </footer>
     );
